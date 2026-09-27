@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #080B10;
+  color: #F1F5F9;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #22D3EE;
+  color: #080B10;
+}
+
+/* Subtle Engineering Grid Background */
+.bg-grid-subtle {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080B10;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E2935;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #273544;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #22D3EE;
+  outline-offset: 2px;
+}
+
+/* Glassmorphism Card Style */
+.card-linear {
+  background: #11161D;
+  border: 1px solid #1E2935;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-linear:hover {
+  border-color: #273544;
+}
+
+/* Subtle moving light along grid line */
+@keyframes gridLight {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateX(200%); opacity: 0; }
+}
+
+.animate-grid-light {
+  animation: gridLight 8s ease-in-out infinite;
+}
