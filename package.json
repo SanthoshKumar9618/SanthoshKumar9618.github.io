@@ -4,11 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:next": "next dev",
-    "build": "vite build",
-    "build:next": "next build",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start"
   },
   "devDependencies": {
