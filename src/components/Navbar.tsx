@@ -18,13 +18,17 @@ export default function Navbar() {
   const [activeSection,   setActiveSection]    = useState('');
   const [theme,           setTheme]            = useState<'light'|'dark'>('light');
 
-  /* ── Theme init ── */
+  /* ── Theme init: LIGHT is always default ── */
   useEffect(() => {
     const stored = localStorage.getItem('theme');
-    if (stored === 'dark' || (!stored && document.documentElement.classList.contains('dark'))) {
+    if (stored === 'dark') {
       setTheme('dark');
+      document.documentElement.classList.add('dark');
     } else {
+      // Guarantee light mode — remove dark class even if system is dark
       setTheme('light');
+      document.documentElement.classList.remove('dark');
+      if (!stored) localStorage.setItem('theme', 'light');
     }
   }, []);
 

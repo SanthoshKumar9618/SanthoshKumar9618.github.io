@@ -12,15 +12,15 @@
   --font-inter:    'Inter', -apple-system, sans-serif;
   --font-ibm-mono: 'IBM Plex Mono', SFMono-Regular, monospace;
 
-  /* Light mode (default) */
-  --bg:            #F7F7F5;
+  /* Light mode (DEFAULT — always used unless user explicitly toggles dark) */
+  --bg:            #FAFAF8;
   --bg-white:      #FFFFFF;
-  --bg-surface:    #F0F0EE;
+  --bg-surface:    #F3F4F1;
   --text:          #171717;
   --text-muted:    #5F6368;
   --text-faint:    #9CA3AF;
-  --border:        #E5E5E0;
-  --border-strong: #D1D1CC;
+  --border:        #E5E7E3;
+  --border-strong: #CACDC8;
   --accent:        #155EEF;
   --accent-teal:   #0F766E;
   --accent-green:  #16A34A;
@@ -29,15 +29,15 @@
 }
 
 .dark {
-  --bg:            #0F0F0E;
-  --bg-white:      #1A1A18;
-  --bg-surface:    #1F1F1D;
+  --bg:            #111110;
+  --bg-white:      #1C1C1A;
+  --bg-surface:    #222220;
   --text:          #EDEDE9;
   --text-muted:    #9CA3AF;
   --text-faint:    #6B7280;
-  --border:        #2A2A28;
+  --border:        #2E2E2C;
   --border-strong: #3A3A38;
-  --accent:        #3B82F6;
+  --accent:        #4F80FF;
   --accent-teal:   #14B8A6;
   --accent-green:  #22C55E;
 
