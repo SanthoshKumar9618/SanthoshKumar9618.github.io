@@ -9,54 +9,76 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: {
-          DEFAULT: '#080B10',
-          secondary: '#0D1117',
-          card: '#11161D',
+        /* Light mode surfaces */
+        canvas: {
+          DEFAULT: '#F7F7F5',
+          white: '#FFFFFF',
         },
-        border: {
-          DEFAULT: '#1E2935',
-          subtle: '#273544',
-          active: '#22D3EE',
+        /* Dark mode surfaces */
+        ink: {
+          DEFAULT: '#0F0F0E',
+          secondary: '#1A1A18',
+          card: '#1F1F1D',
         },
-        primary: {
-          DEFAULT: '#F1F5F9',
-          muted: '#94A3B8',
+        /* Text */
+        stone: {
+          DEFAULT: '#171717',
+          muted: '#5F6368',
+          faint: '#9CA3AF',
         },
-        cyan: {
-          DEFAULT: '#22D3EE',
-          glow: 'rgba(34, 211, 238, 0.15)',
+        /* Borders */
+        line: {
+          DEFAULT: '#E5E5E0',
+          dark: '#2A2A28',
         },
-        violet: {
-          DEFAULT: '#8B5CF6',
-          glow: 'rgba(139, 92, 246, 0.12)',
+        /* Accents */
+        accent: {
+          blue: '#155EEF',
+          teal: '#0F766E',
+          green: '#16A34A',
         },
-        success: '#22C55E',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        heading: ['var(--font-space-grotesk)', 'Space Grotesk', 'sans-serif'],
-        mono: ['var(--font-jetbrains-mono)', 'JetBrains Mono', 'monospace'],
+        sans:    ['Inter', 'var(--font-inter)', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        heading: ['Manrope', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
+        mono:    ['"IBM Plex Mono"', 'var(--font-ibm-mono)', 'SFMono-Regular', 'monospace'],
+      },
+      fontSize: {
+        '2xs': ['0.65rem', { lineHeight: '1rem' }],
+      },
+      letterSpacing: {
+        widest2: '0.2em',
       },
       boxShadow: {
-        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.5)',
-        'cyan-glow': '0 0 20px -2px rgba(34, 211, 238, 0.25)',
-        'violet-glow': '0 0 20px -2px rgba(139, 92, 246, 0.2)',
+        'subtle': '0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.04)',
+        'card':   '0 4px 16px -4px rgba(0,0,0,0.08)',
+        'elevated':'0 8px 32px -8px rgba(0,0,0,0.10)',
       },
       keyframes: {
-        'pulse-subtle': {
-          '0%, 100%': { opacity: 0.8 },
-          '50%': { opacity: 0.4 },
+        'fade-up': {
+          '0%':   { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        'line-flow': {
-          '0%': { strokeDashoffset: '100' },
-          '100%': { strokeDashoffset: '0' },
-        }
+        'fade-in': {
+          '0%':   { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'flow-down': {
+          '0%':   { opacity: '0', transform: 'translateY(-4px)' },
+          '50%':  { opacity: '1' },
+          '100%': { opacity: '0', transform: 'translateY(20px)' },
+        },
+        'ping-slow': {
+          '0%, 100%': { transform: 'scale(1)',   opacity: '0.8' },
+          '50%':       { transform: 'scale(1.4)', opacity: '0' },
+        },
       },
       animation: {
-        'pulse-subtle': 'pulse-subtle 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'line-flow': 'line-flow 3s linear infinite',
-      }
+        'fade-up':   'fade-up 0.5s ease forwards',
+        'fade-in':   'fade-in 0.4s ease forwards',
+        'flow-down': 'flow-down 2.4s ease-in-out infinite',
+        'ping-slow': 'ping-slow 2s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

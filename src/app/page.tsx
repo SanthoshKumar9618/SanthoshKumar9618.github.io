@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import GlobalBackground from '../components/GlobalBackground';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import About from '../components/About';
@@ -15,28 +16,43 @@ import Footer from '../components/Footer';
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#080B10] text-[#F1F5F9] font-sans selection:bg-cyan selection:text-[#080B10] overflow-x-hidden">
-      {/* Subtle Engineering Global Background */}
-      <GlobalBackground />
-
-      {/* Sticky Header Navigation */}
+    <div className="relative min-h-screen overflow-x-hidden">
+      {/* Navigation */}
       <Navbar />
 
-      {/* Main Sections */}
-      <main className="relative z-10">
+      {/* Main content */}
+      <main>
+        {/* 01: Hero */}
         <Hero />
+
+        {/* 02: About */}
         <About />
-        <EngineeringPhilosophy />
+
+        {/* 03: Experience */}
         <Experience />
+
+        {/* 04: Projects */}
         <Projects />
+
+        {/* 05: Engineering Philosophy */}
+        <EngineeringPhilosophy />
+
+        {/* 06: System Architecture */}
         <SystemArchitecture />
+
+        {/* 07: Skills */}
         <Skills />
+
+        {/* 08: Problem Solving / DSA */}
         <EngineeringPractice />
+
+        {/* 09: Find My Work */}
         <GithubSection />
+
+        {/* 10: Contact */}
         <Contact />
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

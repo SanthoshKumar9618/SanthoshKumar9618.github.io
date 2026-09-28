@@ -1,75 +1,203 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================
+   CSS CUSTOM PROPERTIES
+   ========================================= */
 :root {
-  --font-inter: 'Inter', sans-serif;
-  --font-space-grotesk: 'Space Grotesk', sans-serif;
-  --font-jetbrains-mono: 'JetBrains Mono', monospace;
+  --font-manrope:  'Manrope', system-ui, sans-serif;
+  --font-inter:    'Inter', -apple-system, sans-serif;
+  --font-ibm-mono: 'IBM Plex Mono', SFMono-Regular, monospace;
+
+  /* Light mode (default) */
+  --bg:            #F7F7F5;
+  --bg-white:      #FFFFFF;
+  --bg-surface:    #F0F0EE;
+  --text:          #171717;
+  --text-muted:    #5F6368;
+  --text-faint:    #9CA3AF;
+  --border:        #E5E5E0;
+  --border-strong: #D1D1CC;
+  --accent:        #155EEF;
+  --accent-teal:   #0F766E;
+  --accent-green:  #16A34A;
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg:            #0F0F0E;
+  --bg-white:      #1A1A18;
+  --bg-surface:    #1F1F1D;
+  --text:          #EDEDE9;
+  --text-muted:    #9CA3AF;
+  --text-faint:    #6B7280;
+  --border:        #2A2A28;
+  --border-strong: #3A3A38;
+  --accent:        #3B82F6;
+  --accent-teal:   #14B8A6;
+  --accent-green:  #22C55E;
+
   color-scheme: dark;
 }
 
+/* =========================================
+   BASE STYLES
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: #080B10;
-  color: #F1F5F9;
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
+/* =========================================
+   SELECTION
+   ========================================= */
 ::selection {
-  background-color: #22D3EE;
-  color: #080B10;
+  background-color: #155EEF22;
+  color: var(--text);
 }
 
-/* Subtle Engineering Grid Background */
-.bg-grid-subtle {
-  background-size: 36px 36px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+.dark ::selection {
+  background-color: #3B82F622;
+  color: var(--text);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #080B10;
-}
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
-  background: #1E2935;
+  background: var(--border-strong);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #273544;
+  background: var(--text-faint);
 }
 
-/* Focus styles for accessibility */
+/* =========================================
+   FOCUS
+   ========================================= */
 *:focus-visible {
-  outline: 2px solid #22D3EE;
-  outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
-/* Glassmorphism Card Style */
-.card-linear {
-  background: #11161D;
-  border: 1px solid #1E2935;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* =========================================
+   UTILITY CLASSES
+   ========================================= */
+
+/* Section label */
+.label-mono {
+  font-family: var(--font-ibm-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.card-linear:hover {
-  border-color: #273544;
+/* Thin divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
 }
 
-/* Subtle moving light along grid line */
-@keyframes gridLight {
-  0% { transform: translateX(-100%); opacity: 0; }
-  50% { opacity: 0.6; }
-  100% { transform: translateX(200%); opacity: 0; }
+/* Accent underline on hover */
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+.hover-underline:hover::after {
+  width: 100%;
 }
 
-.animate-grid-light {
-  animation: gridLight 8s ease-in-out infinite;
+/* Engineering diagram line */
+.diagram-line {
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* Tag pill */
+.tech-tag {
+  font-family: var(--font-ibm-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+  background: var(--bg-white);
+  white-space: nowrap;
+}
+
+.dark .tech-tag {
+  background: var(--bg-surface);
+}
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================
+   FLOW ANIMATION (architecture diagram)
+   ========================================= */
+@keyframes flowDot {
+  0%   { opacity: 0; transform: translateY(-4px); }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
+}
+
+.flow-dot {
+  animation: flowDot 2.2s ease-in-out infinite;
+}
+
+.flow-dot:nth-child(2) { animation-delay: 0.4s; }
+.flow-dot:nth-child(3) { animation-delay: 0.8s; }
+.flow-dot:nth-child(4) { animation-delay: 1.2s; }
+.flow-dot:nth-child(5) { animation-delay: 1.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-dot { animation: none; opacity: 0.4; }
 }

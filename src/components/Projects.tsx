@@ -1,120 +1,157 @@
 'use client';
 
 import React, { useState } from 'react';
-import { projectsData, ProjectItem } from '../data/portfolioData';
-import ProjectModal from './ProjectModal';
-import { ArrowUpRight, Cpu, ChevronRight, Layers } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { projectsData } from '../data/portfolioData';
+import { ArrowUpRight } from 'lucide-react';
+
+/* Mini architecture pipeline diagram */
+function Pipeline({ steps }: { steps: string[] }) {
+  return (
+    <div className="flex flex-col gap-0">
+      {steps.map((step, i) => (
+        <React.Fragment key={step}>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full border border-[var(--border-strong)] bg-[var(--bg-white)] shrink-0" />
+            <span className="font-mono text-2xs text-[var(--text-muted)] uppercase tracking-wide">{step}</span>
+          </div>
+          {i < steps.length - 1 && (
+            <div className="flex items-center gap-2 my-0.5">
+              <div className="w-px h-3 bg-[var(--border)] ml-[3px]" />
+              <span className="font-mono text-2xs text-[var(--text-faint)] ml-0.5">↓</span>
+            </div>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const prefersReduced = useReducedMotion();
+  const [activeProject, setActiveProject] = useState<string | null>(null);
 
   return (
-    <section id="projects" className="py-20 border-t border-[#1E2935]/60 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="mb-14">
-          <div className="text-xs font-mono text-cyan uppercase tracking-widest mb-2">
-            04 // CASE STUDIES
-          </div>
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-primary tracking-tight">
-            SELECTED PROJECTS
-          </h2>
-          <p className="mt-2 text-sm text-primary-muted font-sans max-w-xl">
-            Detailed engineering case studies covering real-time voice architectures, backend REST APIs, and predictive machine learning.
-          </p>
-        </div>
+    <section
+      id="projects"
+      className="py-24 bg-[var(--bg)] border-t border-[var(--border)]"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Project Case Study Cards */}
-        <div className="space-y-8">
-          {projectsData.map((project) => (
-            <div
-              key={project.id}
-              onClick={() => setSelectedProject(project)}
-              className="p-6 sm:p-8 rounded-2xl bg-[#11161D] border border-[#1E2935] hover:border-cyan/50 transition-all duration-300 shadow-card cursor-pointer group hover:-translate-y-0.5"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
-                {/* Left: Project Details & Meta */}
-                <div className="lg:col-span-7 space-y-4">
-                  <div className="flex items-center gap-2 font-mono text-xs">
-                    <span className="text-cyan font-bold">PROJECT {project.number}</span>
-                    <span className="text-[#273544]">/</span>
-                    <span className="text-primary-muted uppercase tracking-wider">{project.category}</span>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: prefersReduced ? 0 : 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-14"
+        >
+          <span className="label-mono">03 / PROJECTS</span>
+          <div className="h-px flex-1 bg-[var(--border)] max-w-[60px]" />
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: prefersReduced ? 0 : 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: prefersReduced ? 0 : 0.05 }}
+          className="font-heading font-700 text-3xl sm:text-4xl text-[var(--text)] tracking-tight mb-12"
+        >
+          Selected projects.
+        </motion.h2>
+
+        {/* Project list */}
+        <div className="space-y-0 divide-y divide-[var(--border)] border-y border-[var(--border)]">
+          {projectsData.map((project, i) => {
+            const isOpen = activeProject === project.id;
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: prefersReduced ? 0 : i * 0.08 }}
+              >
+                {/* Main row */}
+                <div className="py-8 grid lg:grid-cols-[80px_1fr_240px] gap-6 lg:gap-10 items-start">
+
+                  {/* Number */}
+                  <div className="hidden lg:block pt-1">
+                    <span className="font-mono text-3xl font-700 text-[var(--border)] leading-none">{project.number}</span>
                   </div>
 
-                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-primary group-hover:text-cyan transition-colors">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm text-primary-muted leading-relaxed font-sans">
-                    {project.description}
-                  </p>
-
-                  {/* Highlights Bullet List */}
-                  <div className="space-y-1.5 pt-2">
-                    {project.highlights.slice(0, 2).map((item, hIdx) => (
-                      <div key={hIdx} className="text-xs text-primary-muted flex items-start gap-2">
-                        <span className="text-cyan mt-0.5">▪</span>
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Technologies Badges */}
-                  <div className="flex flex-wrap gap-1.5 pt-3">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-0.5 text-xs font-mono rounded bg-[#0D1117] text-primary-muted border border-[#1E2935] group-hover:border-[#273544] transition-colors"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right: Architecture Diagram Flow Box */}
-                <div className="lg:col-span-5 flex flex-col justify-between h-full p-5 rounded-xl bg-[#0D1117] border border-[#1E2935] group-hover:border-[#273544] transition-colors">
+                  {/* Center: title + description + tags */}
                   <div>
-                    <div className="text-[11px] font-mono text-cyan uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                      <Cpu className="w-3.5 h-3.5" />
-                      <span>Architecture Pipeline</span>
+                    <div className="flex items-baseline gap-3 mb-1">
+                      <span className="lg:hidden font-mono text-xs text-[var(--text-faint)]">{project.number}</span>
+                      <span className="label-mono">{project.category}</span>
                     </div>
-
-                    {/* Flow steps */}
-                    <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs">
-                      {project.pipeline.map((step, idx) => (
-                        <React.Fragment key={idx}>
-                          <span className="px-2 py-1 rounded bg-[#11161D] text-primary border border-[#1E2935] text-[11px]">
-                            {step}
-                          </span>
-                          {idx < project.pipeline.length - 1 && (
-                            <span className="text-cyan text-xs">→</span>
-                          )}
-                        </React.Fragment>
+                    <h3 className="font-heading font-700 text-xl sm:text-2xl text-[var(--text)] tracking-tight mb-3 leading-snug">
+                      {project.title.replace(/ — /g, ' ')}
+                    </h3>
+                    <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-5 max-w-xl">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {project.technologies.map(tech => (
+                        <span key={tech} className="tech-tag">{tech}</span>
                       ))}
                     </div>
+
+                    {/* Expand button */}
+                    <button
+                      onClick={() => setActiveProject(isOpen ? null : project.id)}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors cursor-pointer border-b border-transparent hover:border-[var(--accent)] pb-px"
+                    >
+                      {isOpen ? 'Hide details' : 'View details'}
+                    </button>
                   </div>
 
-                  <div className="mt-6 pt-3 border-t border-[#1E2935] flex items-center justify-between text-xs font-mono text-cyan">
-                    <span className="group-hover:underline">Open Case Study Details</span>
-                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  {/* Right: pipeline diagram */}
+                  <div className="hidden lg:block pl-6 border-l border-[var(--border)]">
+                    <p className="label-mono mb-4">ARCHITECTURE</p>
+                    <Pipeline steps={project.pipeline} />
                   </div>
                 </div>
 
-              </div>
-            </div>
-          ))}
+                {/* Expandable details */}
+                {isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: prefersReduced ? 0 : 0.28 }}
+                    className="overflow-hidden pb-8 lg:pl-[calc(80px+2.5rem)]"
+                  >
+                    <div className="border border-[var(--border)] rounded bg-[var(--bg-white)] p-6">
+                      <p className="label-mono mb-4">HIGHLIGHTS</p>
+                      <ul className="space-y-2.5 mb-6">
+                        {project.highlights.map((h, j) => (
+                          <li key={j} className="flex gap-3 text-sm text-[var(--text-muted)] leading-relaxed">
+                            <span className="font-mono text-[var(--border-strong)] shrink-0">—</span>
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="label-mono mb-2.5">TECHNICAL OVERVIEW</p>
+                      <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+                        {project.architectureDetails}
+                      </p>
+
+                      {/* Mobile pipeline */}
+                      <div className="lg:hidden mt-6 pt-6 border-t border-[var(--border)]">
+                        <p className="label-mono mb-4">PIPELINE</p>
+                        <Pipeline steps={project.pipeline} />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>
-
-      {/* Case Study Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </section>
   );
 }

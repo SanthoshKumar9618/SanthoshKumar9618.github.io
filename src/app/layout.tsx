@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     'LLM',
     'React',
     'PostgreSQL',
-    'Redis'
+    'Redis',
   ],
   authors: [{ name: 'T Santhosh Kumar' }],
   creator: 'T Santhosh Kumar',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://tsanthoshdev.com',
+    url: 'https://santhoshkumar9618.github.io',
     title: 'T Santhosh Kumar | Software Engineer | Python Backend Developer',
     description: 'Software Engineer specializing in Python, FastAPI, backend engineering, full-stack development, real-time systems, RAG, and AI-powered applications.',
     siteName: 'T Santhosh Kumar Portfolio',
@@ -41,16 +41,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" 
-          rel="stylesheet" 
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+        {/* Inline theme initialization to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
         />
       </head>
-      <body className="bg-[#080B10] text-[#F1F5F9] antialiased selection:bg-cyan selection:text-[#080B10]">
+      <body className="antialiased">
         {children}
       </body>
     </html>
